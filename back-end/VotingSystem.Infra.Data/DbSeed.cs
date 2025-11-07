@@ -16,7 +16,6 @@ namespace VotingSystem.Infra.Data
                     Name = "Manu Gavazzi",
                     PhotoUrl = "https://i.imgur.com/NxoF9Dt.png",
                     IsActive = true,
-                    CreatedAt = null
                 },
                 new Participant
                 {
@@ -24,7 +23,6 @@ namespace VotingSystem.Infra.Data
                     Name = "Felipe Prior",
                     PhotoUrl = "https://i.imgur.com/yv5n9Rz.png",
                     IsActive = true,
-                    CreatedAt = null
                 },
             };
         }

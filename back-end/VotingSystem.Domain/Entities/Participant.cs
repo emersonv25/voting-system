@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace VotingSystem.Domain.Entities
 {
-    public class Participant : BaseEntity
+    public class Participant
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string PhotoUrl { get; set; }
         public bool IsActive { get; set; }
