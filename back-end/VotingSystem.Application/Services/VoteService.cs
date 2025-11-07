@@ -14,22 +14,20 @@ namespace VotingSystem.Application.Services
     public class VoteService : IVoteService
     {
         private readonly IVoteRepository _voteRepository;
-        private readonly IParticipantRepository _participantRepository;
+        private readonly IRabbitMqService _rabbitMqService;
 
-        public VoteService(IVoteRepository voteRepository, IParticipantRepository participantRepository)
+        public VoteService(IVoteRepository voteRepository, 
+            IRabbitMqService rabbitMqService)
         {
             _voteRepository = voteRepository;
-            _participantRepository = participantRepository;
+            _rabbitMqService = rabbitMqService;
+
         }
 
         public async Task RegisterVoteAsync(Guid participantId)
         {
-            var participant = await _participantRepository.GetByIdAsync(participantId);
-            if (participant == null)
-                throw new ArgumentException("Participante inválido.");
-
-            var vote = new Vote { ParticipantId = participantId };
-            await _voteRepository.AddAsync(vote);
+            _rabbitMqService.Publish("vote_queue", new { ParticipantId = participantId, Timestamp = DateTime.UtcNow });
+            await Task.CompletedTask;
         }
 
 

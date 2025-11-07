@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using VotingSystem.Api.Middlewares;
-using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using VotingSystem.Api.DTOs;
 using VotingSystem.Api.Filters;
+using VotingSystem.Api.Middlewares;
+using VotingSystem.Application.Services;
 using VotingSystem.Infra.Ioc;
 
 
@@ -53,6 +54,8 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+// Adiciona o serviço de background
 
 var app = builder.Build();
 

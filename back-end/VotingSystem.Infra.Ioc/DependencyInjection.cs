@@ -31,6 +31,9 @@ namespace VotingSystem.Infra.Ioc
             //Services
             services.AddScoped<IVoteService, VoteService>();
             services.AddScoped<IResultService, ResultService>();
+            services.AddScoped<IRabbitMqService, RabbitMqService>();
+            // Messaging Services
+            services.AddSingleton<IRabbitMqService, RabbitMqService>();
 
             //Cache
             services.AddMemoryCache();
