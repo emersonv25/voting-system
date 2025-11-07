@@ -30,7 +30,7 @@ namespace VotingSystem.Infra.Ioc
 
             //Services
             services.AddScoped<IVoteService, VoteService>();
-            services.AddScoped<IParticipantService, ParticipantService>();
+            services.AddScoped<IResultService, ResultService>();
 
             //Cache
             services.AddMemoryCache();

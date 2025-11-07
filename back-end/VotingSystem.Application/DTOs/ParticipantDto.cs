@@ -11,5 +11,7 @@ namespace VotingSystem.Application.DTOs
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string PhotoUrl { get; set; }
+        public int Votes { get; set; }
+        public int PercentageOfVotes { get; set; }
     }
 }

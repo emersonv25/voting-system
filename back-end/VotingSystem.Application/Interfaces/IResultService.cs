@@ -7,9 +7,8 @@ using VotingSystem.Application.DTOs;
 
 namespace VotingSystem.Application.Interfaces
 {
-    public interface IParticipantService
+    public interface IResultService
     {
-        Task<IEnumerable<ParticipantDto>> GetAllActiveAsync();
-        Task<ParticipantDto?> GetByIdAsync(Guid id);
+        Task<ResultDto> GetResultAsync();
     }
 }

@@ -43,6 +43,17 @@ builder.Services.AddSwaggerGen(c =>
 
 });
 
+// Adiciona CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -54,6 +65,9 @@ if (app.Environment.IsDevelopment())
 
 // Middlewares
 app.UseMiddleware<ErrorHandlingMiddleware>();
+
+// Ativa o CORS
+app.UseCors();
 
 app.MapControllers();
 app.Run();

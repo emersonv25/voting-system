@@ -32,31 +32,12 @@ namespace VotingSystem.Application.Services
             await _voteRepository.AddAsync(vote);
         }
 
-        public async Task<int> GetTotalVotesAsync()
-        {
-            return await _voteRepository.GetTotalVotesAsync();
-        }
 
-        public async Task<IEnumerable<VotesPerHourDto>> GetVotesPerHourAsync()
-        {
-            return await _voteRepository.GetVotesPerHourAsync();
-        }
-
-        public async Task<GetTotalByParticipantDto> GetTotalVotesByParticipantAsync(Guid participantId)
-        {
-            var total = await _voteRepository.GetTotalVotesByParticipantAsync(participantId);
-            return new GetTotalByParticipantDto
-            {
-                ParticipantId = participantId,
-                TotalVotes = total
-            };
-        }
-
-        public async Task<GetStatsDto> GetStatsAsync()
+        public async Task<StatsDto> GetStatsAsync()
         {
             var totalVotes = await _voteRepository.GetTotalVotesAsync();
             var votesPerHour = await _voteRepository.GetVotesPerHourAsync();
-            return new GetStatsDto
+            return new StatsDto
             {
                 TotalVotes = totalVotes,
                 VotesPerHour = votesPerHour.ToList()

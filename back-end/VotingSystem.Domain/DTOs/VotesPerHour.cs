@@ -8,7 +8,7 @@ namespace VotingSystem.Domain.DTOs
 {
     public class VotesPerHourDto
     {
-        public DateTime Hour { get; set; }
+        public DateTimeOffset  Hour { get; set; }
         public int Total { get; set; }
     }
 }

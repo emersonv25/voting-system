@@ -16,6 +16,9 @@ namespace VotingSystem.Api.Controllers
             _voteService = voteService;
         }
 
+        /// <summary>
+        /// Registra um voto
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> PostVote(Guid participantId)
         {
@@ -27,20 +30,10 @@ namespace VotingSystem.Api.Controllers
         /// Estatísticas gerais de votação
         /// </summary>
         [HttpGet("stats")]
-        public async Task<ActionResult<GetStatsDto>> GetStats()
+        public async Task<ActionResult<StatsDto>> GetStats()
         {
             var response = await _voteService.GetStatsAsync();
 
-            return Ok(response);
-        }
-
-        /// <summary>
-        /// Total de votos por participante
-        /// </summary>
-        [HttpGet("participant/{id}")]
-        public async Task<ActionResult<GetTotalByParticipantDto>> GetTotalByParticipant(Guid id)
-        {
-            var response = await _voteService.GetTotalVotesByParticipantAsync(id);
             return Ok(response);
         }
     }
