@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using VotingSystem.Application.DTOs;
 using VotingSystem.Application.Interfaces;
 
@@ -20,6 +21,7 @@ namespace VotingSystem.Api.Controllers
         /// Registra um voto
         /// </summary>
         [HttpPost]
+        [EnableRateLimiting("PerIpPolicy")]
         public async Task<IActionResult> PostVote(Guid participantId)
         {
             await _voteService.RegisterVoteAsync(participantId);

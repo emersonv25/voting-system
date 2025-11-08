@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Threading.RateLimiting;
 using VotingSystem.Api.DTOs;
 using VotingSystem.Api.Filters;
 using VotingSystem.Api.Middlewares;
-using VotingSystem.Application.Services;
 using VotingSystem.Infra.Ioc;
 
 
@@ -13,6 +14,35 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Registro dos serviços/repositorios
 builder.Services.AddInfrastructure(builder.Configuration);
+
+
+
+// Configuração básica: limite por IP
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddPolicy("PerIpPolicy", context =>
+    {
+        var ip = context.Connection.RemoteIpAddress?.ToString() ?? "unknown";
+
+        return RateLimitPartition.GetTokenBucketLimiter(ip, _ => new TokenBucketRateLimiterOptions
+        {
+            TokenLimit = 5,                   
+            TokensPerPeriod = 5,              
+            ReplenishmentPeriod = TimeSpan.FromSeconds(10),
+            QueueLimit = 0,                   
+            QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+            AutoReplenishment = true
+        });
+    });
+
+    options.OnRejected = async (context, token) =>
+    {
+        context.HttpContext.Response.StatusCode = 429;
+        var errorResponse = new ErrorResponseDTO(429, "Aguarde alguns segundos.");
+        await context.HttpContext.Response.WriteAsJsonAsync(errorResponse, token);
+    };
+});
+
 
 // Adiciona serviços de controle
 builder.Services.AddControllers(options =>
@@ -71,6 +101,9 @@ app.UseMiddleware<ErrorHandlingMiddleware>();
 
 // Ativa o CORS
 app.UseCors();
+
+// ativa o rate limit
+app.UseRateLimiter();
 
 app.MapControllers();
 app.Run();
