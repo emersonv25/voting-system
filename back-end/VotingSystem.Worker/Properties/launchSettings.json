@@ -13,6 +13,9 @@
         "DOTNET_ENVIRONMENT": "Development"
       },
       "distributionName": ""
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json"

@@ -15,8 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Registro dos serviços/repositorios
 builder.Services.AddInfrastructure(builder.Configuration);
 
-
-
 // Configuração básica: limite por IP
 builder.Services.AddRateLimiter(options =>
 {
