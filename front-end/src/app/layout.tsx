@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`font-sans antialiased`}>
+  <body className={`font-sans antialiased h-screen overflow-auto`}>
         <Providers>
           <header className="bg-zinc-800 py-3 px-4">
             <div className="max-w-7xl mx-auto flex items-center justify-between">

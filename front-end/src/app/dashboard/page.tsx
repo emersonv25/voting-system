@@ -17,7 +17,7 @@ export default function DashboardPage() {
   const isLoading = isLoadingResult || isLoadingStats
 
   return (
-    <div className="h-screen bg-neutral-50 overflow-hidden flex flex-col">
+  <div className="h-full bg-neutral-50 flex flex-col">
       {/* Header da página do dashboard */}
   <div className="bg-neutral-800 text-white shadow-md shrink-0">
         <div className="container mx-auto px-4 py-4">
@@ -36,7 +36,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Conteúdo principal */}
-      <div className="container mx-auto px-4 py-8 flex-1 flex flex-col justify-start">
+  <div className="container mx-auto px-4 py-8 flex-1 flex flex-col justify-center">
         {isLoading ? (
           <div className="text-center text-neutral-600 text-lg py-12">Carregando estatísticas...</div>
         ) : result && stats ? (
