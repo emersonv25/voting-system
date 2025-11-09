@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2 } from "lucide-react"
+import { CheckCircle2, Eye } from "lucide-react"
 import { useResultQuery } from "@/queries/use-result-query"
 import { VotingResults } from "@/components/voting/voting-results"
 
@@ -34,13 +34,21 @@ export default function ResultPage() {
         )}
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8 md:mt-12">
+        <div className="flex flex-col items-center gap-4 mt-8">
           <Button
             size="lg"
             onClick={() => router.push("/")}
             className="bg-gray-900 text-white hover:bg-gray-800 text-base md:text-lg px-8 py-6 rounded-md font-semibold shadow-md transition-all hover:shadow-lg cursor-pointer"
           >
             VOTAR NOVAMENTE
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={() => router.push("/dashboard")}
+            className="text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 text-sm md:text-base px-4 py-2 rounded flex items-center gap-2 cursor-pointer"
+          >
+            <Eye className="size-4" />
+            Ver Resultados
           </Button>
         </div>
       </div>

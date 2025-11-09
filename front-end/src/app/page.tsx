@@ -92,14 +92,14 @@ export default function Home() {
             )}
           </Button>
 
-            <Button
+          <Button
             variant="ghost"
             onClick={() => router.push("/dashboard")}
             className="text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 text-sm md:text-base px-4 py-2 rounded flex items-center gap-2 cursor-pointer"
-            >
+          >
             <Eye className="size-4" />
-            Ver Resultados Parciais
-            </Button>
+            Ver Resultados
+          </Button>
         </div>
       </div>
     </div>
