@@ -22,6 +22,13 @@ namespace VotingSystem.Infra.Ioc
                 options.UseNpgsql(connectionString, b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName));
             });
 
+            // Aplica migrations automaticamente
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                using var scope = serviceProvider.CreateScope();
+                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                dbContext.Database.Migrate();
+            }
 
             //Repositories
             services.AddScoped<IVoteRepository, VoteRepository>();

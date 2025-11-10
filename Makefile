@@ -33,3 +33,11 @@ down-front:
 
 logs-front:
 	docker compose -f docker-compose.frontend.yml logs -f frontend
+
+
+# ----------------------------
+# 🔄 All Services
+# ----------------------------
+up-all: up-infra up-back up-front
+
+down-all: down-infra down-back down-front

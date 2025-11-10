@@ -12,7 +12,7 @@ using VotingSystem.Data;
 namespace VotingSystem.Infra.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251107134907_First")]
+    [Migration("20251110210819_First")]
     partial class First
     {
         /// <inheritdoc />
