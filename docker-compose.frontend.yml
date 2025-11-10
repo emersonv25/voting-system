@@ -1,0 +1,16 @@
+services:
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: voting_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: "http://localhost:5000"
+    networks:
+      - voting_network
+
+networks:
+  voting_network:
+    external: true
