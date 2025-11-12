@@ -3,13 +3,11 @@ services:
     build:
       context: ./front-end
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:5000/api
     container_name: voting_frontend
     ports:
       - "3000:3000"
-    environment:
-      NEXT_PUBLIC_API_URL: "http://localhost:5000"
-    networks:
-      - voting_network
 
 networks:
   voting_network:

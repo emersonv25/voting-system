@@ -79,7 +79,7 @@ O sistema é dividido em 3 partes:
 
 ---
 
-### 🧩 Comandos principais (Makefile)
+### 🧩 Comandos principais (Makefile) (Linux/Wsl)
 
 | Comando | Descrição |
 |----------|------------|
@@ -91,10 +91,6 @@ O sistema é dividido em 3 partes:
 | `make logs-api` | Mostra logs da API |
 | `make logs-worker` | Mostra logs do Worker |
 | `make logs-front` | Motra logs do Front-end
-
----
-
-### ▶️ Executando o Sistema
 
 ```bash
 # Subir tudo de uma vez (INFRA + BACK + FRONT)
@@ -111,6 +107,31 @@ make up-back
 # Subir frontend (Next.js)
 make up-front
 ```
+
+### 🪟 Comandos principais (Docker Compose) (Windows e Linux)
+
+No Windows, utilize os comandos abaixo diretamente no terminal (cmd ou PowerShell), pois o `make` não está disponível nativamente:
+
+| Comando | Descrição |
+|----------|------------|
+| `docker compose -f docker-compose.infra.yml up -d` | Sobe PostgreSQL + RabbitMQ |
+| `docker compose -f docker-compose.infra.yml down` | Derruba PostgreSQL + RabbitMQ |
+| `docker compose -f docker-compose.backend.yml up --build -d` | Sobe API + Worker |
+| `docker compose -f docker-compose.backend.yml down` | Derruba API + Worker |
+| `docker compose -f docker-compose.frontend.yml up --build -d` | Sobe Frontend |
+| `docker compose -f docker-compose.frontend.yml down` | Derruba Frontend |
+| `docker compose -f docker-compose.backend.yml logs -f api` | Mostra logs da API |
+| `docker compose -f docker-compose.backend.yml logs -f worker` | Mostra logs do Worker |
+| `docker compose -f docker-compose.frontend.yml logs -f frontend` | Mostra logs do Frontend |
+
+**Para subir todos os serviços:**
+
+```cmd
+docker compose -f docker-compose.infra.yml up -d
+docker compose -f docker-compose.backend.yml up --build -d
+docker compose -f docker-compose.frontend.yml up --build -d
+```
+
 
 **Acesse:**
 
@@ -192,7 +213,12 @@ Antes de começar, certifique-se de ter instalado em sua máquina:
 #### 1️⃣ Subir a infraestrutura (PostgreSQL + RabbitMQ)
 
 ```bash
+# apenas no Linux/WSL
 make up-infra
+```
+ou
+```bash
+docker compose -f docker-compose.infra.yml up -d
 ```
 
 Isso criará e executará os containers de **banco de dados** e **mensageria**, necessários para o backend funcionar.
