@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,18 +16,21 @@ namespace VotingSystem.Application.Services
     {
         private readonly IVoteRepository _voteRepository;
         private readonly IRabbitMqService _rabbitMqService;
+        private readonly ILogger<VoteService> _logger;
 
         public VoteService(IVoteRepository voteRepository, 
-            IRabbitMqService rabbitMqService)
+            IRabbitMqService rabbitMqService, ILogger<VoteService> logger)
         {
             _voteRepository = voteRepository;
             _rabbitMqService = rabbitMqService;
+            _logger = logger;
 
         }
 
         public async Task RegisterVoteAsync(Guid participantId)
         {
             _rabbitMqService.Publish("vote_queue", new { ParticipantId = participantId, Timestamp = DateTime.UtcNow });
+            _logger.LogInformation("Voto registrado para o participante {ParticipantId}", participantId);
             await Task.CompletedTask;
         }
 
