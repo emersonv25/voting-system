@@ -7,7 +7,7 @@ services:
     ports:
       - "5000:8080"
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_ENVIRONMENT: "Production"
       ConnectionStrings__DefaultConnection: "Host=voting_pgsql;Database=voting_db;Username=voting_user;Password=voting_pass"
       RabbitMQ__HostName: "voting_rabbitmq"
       RabbitMQ__UserName: "voting_user"
@@ -19,7 +19,7 @@ services:
       dockerfile: VotingSystem.Worker/Dockerfile
     container_name: voting_worker
     environment:
-      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_ENVIRONMENT: "Production"
       ConnectionStrings__DefaultConnection: "Host=voting_pgsql;Database=voting_db;Username=voting_user;Password=voting_pass"
       RabbitMQ__HostName: "voting_rabbitmq"
       RabbitMQ__UserName: "voting_user"
