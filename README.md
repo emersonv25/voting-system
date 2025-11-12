@@ -137,7 +137,7 @@ docker compose -f docker-compose.frontend.yml up --build -d
 
 - 🌐 **Frontend**: http://localhost:3000  
 - 🔌 **API .NET**: http://localhost:5000/swagger  
-- 🐰 **RabbitMQ UI**: http://localhost:15672 (user: `voting_user`, pass: `guest`)  
+- 🐰 **RabbitMQ UI**: http://localhost:15672 (user: `voting_user`, pass: `voting_pass`)  
 - 🗄️ **Banco de Dados**: porta `5444` (PostgreSQL)
 
 ---
@@ -147,12 +147,11 @@ docker compose -f docker-compose.frontend.yml up --build -d
 ### API (.NET)
 
 ```env
-ASPNETCORE_ENVIRONMENT=Development
-ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=voting_db;Username=voting_user;Password=voting_pass
+ConnectionStrings__DefaultConnection=Host=voting_pgsql;Port=5432;Database=voting_db;Username=voting_user;Password=voting_pass
 RabbitMQ__HostName=voting_rabbitmq
 RabbitMQ__Port=5672
-RabbitMQ__UserName=guest
-RabbitMQ__Password=guest
+RabbitMQ__UserName=voting_user
+RabbitMQ__Password=voting_pass
 ```
 
 ### Frontend (Next.js)
@@ -225,7 +224,7 @@ Isso criará e executará os containers de **banco de dados** e **mensageria**, 
 
 ### 2️⃣ Executar as migrações do banco de dados
 
-Antes de rodar a API pela primeira vez, é necessário aplicar as migrations do Entity Framework Core para criar o esquema inicial do banco.
+A API já está configurada para rodar a migration sempre que for executada, mas caso necessário:
 
 Execute o comando abaixo:
 
@@ -252,6 +251,8 @@ dotnet run --project VotingSystem.Api
 cd back-end
 dotnet run --project VotingSystem.Worker
 ```
+### Atenção
+Caso tenha rodado o docker do back-end, pode dar erro pela porta 5000 está ocupada.
 
 ### 🐞 Debug
 
@@ -265,7 +266,7 @@ Para quem utiliza Visual Studio Code, é necessário instalar o .NET 8 SDK e o D
 
 #### 💻 Opção 2 — Visual Studio 2022 (apenas Windows) (Recomendado)
 
-Se estiver no Windows, você pode abrir diretamente a solução: backend/VotingSystem.sln
+Se estiver no Windows, com o Visual Studio instalado, você pode abrir diretamente a solução: backend/VotingSystem.sln
 
 #### 3️⃣ Iniciar o frontend (Next.js 15)
 
@@ -292,7 +293,14 @@ npm run dev
 ```bash
 make up-all
 ```
+ou
 
+
+```cmd
+docker compose -f docker-compose.infra.yml up -d
+docker compose -f docker-compose.backend.yml up --build -d
+docker compose -f docker-compose.frontend.yml up --build -d
+```
 ---
 
 ## 🧑‍💻 Autor
